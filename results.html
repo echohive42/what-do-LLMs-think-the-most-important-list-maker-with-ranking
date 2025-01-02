@@ -13,180 +13,562 @@
                     opacity: 0;
                     transform: translateY(20px);
                 }
+                .item-row {
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    position: relative;
+                    padding: 0.75rem 1.25rem;
+                    border-radius: 0.5rem;
+                    margin-bottom: 0.25rem;
+                    display: grid;
+                    grid-template-columns: 50px 1fr 150px 30px;
+                    align-items: center;
+                    gap: 1rem;
+                    border: 1px solid rgba(255,255,255,0.1);
+                }
+                .item-row:hover {
+                    transform: translateX(10px);
+                    background: rgba(255,255,255,0.05);
+                    border-color: rgba(255,255,255,0.2);
+                }
+                .model-details {
+                    max-height: 0;
+                    overflow: hidden;
+                    transition: max-height 0.5s ease-out;
+                    margin-top: 0.5rem;
+                    grid-column: 1 / -1;
+                }
+                .model-details.active {
+                    max-height: 500px;
+                    padding: 1rem;
+                    background: rgba(0,0,0,0.2);
+                    border-radius: 0.5rem;
+                }
+                .rank-badge {
+                    font-size: 1.3rem;
+                    font-weight: 800;
+                    color: rgba(255,255,255,0.3);
+                    text-align: center;
+                    background: rgba(255,255,255,0.05);
+                    border-radius: 0.5rem;
+                    padding: 0.25rem;
+                    width: 40px;
+                }
+                .mention-count {
+                    color: #a991f7;
+                    font-weight: bold;
+                    font-size: 1.1rem;
+                    text-align: right;
+                    padding: 0.5rem 1rem;
+                    background: rgba(169,145,247,0.1);
+                    border-radius: 0.5rem;
+                }
+                .item-name {
+                    font-size: 1.75rem;
+                    font-weight: 700;
+                    padding: 0.25rem;
+                    line-height: 1.2;
+                    background: linear-gradient(45deg, var(--color-start), var(--color-end));
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+                .chevron {
+                    color: rgba(255,255,255,0.5);
+                    font-size: 1.2rem;
+                    transition: transform 0.3s ease;
+                }
+                .item-row.active .chevron {
+                    transform: rotate(180deg);
+                }
+                .model-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                    gap: 0.75rem;
+                }
+                .model-badge {
+                    background: rgba(169,145,247,0.1);
+                    padding: 0.5rem 1rem;
+                    border-radius: 0.5rem;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+                .model-name {
+                    font-size: 0.9rem;
+                    color: #e2e8f0;
+                }
+                .model-count {
+                    background: rgba(169,145,247,0.3);
+                    padding: 0.25rem 0.5rem;
+                    border-radius: 0.25rem;
+                    font-weight: bold;
+                }
             </style>
         </head>
         <body class="bg-gray-900 min-h-screen p-8">
-            <div class="container mx-auto">
+            <div class="container mx-auto max-w-5xl">
                 <h1 class="text-4xl font-bold mb-8 text-white text-center">Item Rankings</h1>
-                <div class="card bg-base-200 shadow-xl">
-                    <div class="card-body">
-                        <div class="overflow-x-auto">
-                            <table class="table table-zebra w-full">
-                                <thead>
-                                    <tr class="text-white">
-                                        <th>Rank</th>
-                                        <th>Item</th>
-                                        <th>Total Mentions</th>
-                                        <th>Models (with mention counts)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                <div class="space-y-2">
+                    
+                    
+                    
+                    <div class="fade-in">
+                        <div class="item-row" onclick="toggleDetails(1, this)" style="--color-start: #FF6B6B; --color-end: #FFE66D">
+                            <div class="rank-badge">#1</div>
+                            <div class="item-name">On the Origin of Species by Charles Darwin</div>
+                            <div class="mention-count">14 mentions</div>
+                            <div class="chevron">▼</div>
+                            
+                            <div id="details-1" class="model-details">
+                                <div class="model-grid">
                                     
-                                    <tr class="fade-in text-white">
-                                        <td>1</td>
-                                        <td>On the Origin of Species by Charles Darwin</td>
-                                        <td>9</td>
-                                        <td>
-                                            
-                                            <span class="badge badge-primary mr-2 mb-1">
-                                                o1-preview: 1
-                                            </span>
-                                            
-                                            <span class="badge badge-primary mr-2 mb-1">
-                                                qwq-32b-preview: 1
-                                            </span>
-                                            
-                                            <span class="badge badge-primary mr-2 mb-1">
-                                                grok-2-1212: 3
-                                            </span>
-                                            
-                                            <span class="badge badge-primary mr-2 mb-1">
-                                                nova-pro-v1: 1
-                                            </span>
-                                            
-                                            <span class="badge badge-primary mr-2 mb-1">
-                                                claude-3.5-haiku-20241022:beta: 1
-                                            </span>
-                                            
-                                            <span class="badge badge-primary mr-2 mb-1">
-                                                claude-3.5-sonnet:beta: 2
-                                            </span>
-                                            
-                                        </td>
-                                    </tr>
+                                    <div class="model-badge">
+                                        <span class="model-name">chatgpt-4o-latest</span>
+                                        <span class="model-count">2</span>
+                                    </div>
                                     
-                                    <tr class="fade-in text-white">
-                                        <td>2</td>
-                                        <td>"The Republic" by Plato</td>
-                                        <td>4</td>
-                                        <td>
-                                            
-                                            <span class="badge badge-primary mr-2 mb-1">
-                                                qwq-32b-preview: 1
-                                            </span>
-                                            
-                                            <span class="badge badge-primary mr-2 mb-1">
-                                                grok-2-1212: 3
-                                            </span>
-                                            
-                                        </td>
-                                    </tr>
+                                    <div class="model-badge">
+                                        <span class="model-name">o1-mini-2024-09-12</span>
+                                        <span class="model-count">2</span>
+                                    </div>
                                     
-                                    <tr class="fade-in text-white">
-                                        <td>3</td>
-                                        <td>Principia Mathematica by Isaac Newton</td>
-                                        <td>3</td>
-                                        <td>
-                                            
-                                            <span class="badge badge-primary mr-2 mb-1">
-                                                o1-preview: 2
-                                            </span>
-                                            
-                                            <span class="badge badge-primary mr-2 mb-1">
-                                                claude-3.5-haiku-20241022:beta: 1
-                                            </span>
-                                            
-                                        </td>
-                                    </tr>
+                                    <div class="model-badge">
+                                        <span class="model-name">o1-preview</span>
+                                        <span class="model-count">3</span>
+                                    </div>
                                     
-                                    <tr class="fade-in text-white">
-                                        <td>4</td>
-                                        <td>"The Bible"</td>
-                                        <td>3</td>
-                                        <td>
-                                            
-                                            <span class="badge badge-primary mr-2 mb-1">
-                                                grok-2-1212: 2
-                                            </span>
-                                            
-                                            <span class="badge badge-primary mr-2 mb-1">
-                                                claude-3.5-haiku-20241022:beta: 1
-                                            </span>
-                                            
-                                        </td>
-                                    </tr>
+                                    <div class="model-badge">
+                                        <span class="model-name">grok-2-1212</span>
+                                        <span class="model-count">3</span>
+                                    </div>
                                     
-                                    <tr class="fade-in text-white">
-                                        <td>5</td>
-                                        <td>"The Wealth of Nations" by Adam Smith</td>
-                                        <td>2</td>
-                                        <td>
-                                            
-                                            <span class="badge badge-primary mr-2 mb-1">
-                                                grok-2-1212: 1
-                                            </span>
-                                            
-                                            <span class="badge badge-primary mr-2 mb-1">
-                                                nova-pro-v1: 1
-                                            </span>
-                                            
-                                        </td>
-                                    </tr>
+                                    <div class="model-badge">
+                                        <span class="model-name">nova-pro-v1</span>
+                                        <span class="model-count">1</span>
+                                    </div>
                                     
-                                    <tr class="fade-in text-white">
-                                        <td>6</td>
-                                        <td>Euclid's Elements</td>
-                                        <td>1</td>
-                                        <td>
-                                            
-                                            <span class="badge badge-primary mr-2 mb-1">
-                                                o1-preview: 1
-                                            </span>
-                                            
-                                        </td>
-                                    </tr>
+                                    <div class="model-badge">
+                                        <span class="model-name">claude-3.5-sonnet:beta</span>
+                                        <span class="model-count">3</span>
+                                    </div>
                                     
-                                    <tr class="fade-in text-white">
-                                        <td>7</td>
-                                        <td>"Leviathan" by Thomas Hobbes</td>
-                                        <td>1</td>
-                                        <td>
-                                            
-                                            <span class="badge badge-primary mr-2 mb-1">
-                                                qwq-32b-preview: 1
-                                            </span>
-                                            
-                                        </td>
-                                    </tr>
-                                    
-                                    <tr class="fade-in text-white">
-                                        <td>8</td>
-                                        <td>"Torah" as sacred Jewish texts</td>
-                                        <td>1</td>
-                                        <td>
-                                            
-                                            <span class="badge badge-primary mr-2 mb-1">
-                                                nova-pro-v1: 1
-                                            </span>
-                                            
-                                        </td>
-                                    </tr>
-                                    
-                                </tbody>
-                            </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    
+                    
+                    
+                    <div class="fade-in">
+                        <div class="item-row" onclick="toggleDetails(2, this)" style="--color-start: #4ECDC4; --color-end: #45B7D1">
+                            <div class="rank-badge">#2</div>
+                            <div class="item-name">Principia Mathematica by Isaac Newton</div>
+                            <div class="mention-count">10 mentions</div>
+                            <div class="chevron">▼</div>
+                            
+                            <div id="details-2" class="model-details">
+                                <div class="model-grid">
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">chatgpt-4o-latest</span>
+                                        <span class="model-count">3</span>
+                                    </div>
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">o1-mini-2024-09-12</span>
+                                        <span class="model-count">1</span>
+                                    </div>
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">o1-preview</span>
+                                        <span class="model-count">2</span>
+                                    </div>
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">nova-pro-v1</span>
+                                        <span class="model-count">1</span>
+                                    </div>
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">claude-3.5-sonnet:beta</span>
+                                        <span class="model-count">3</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="fade-in">
+                        <div class="item-row" onclick="toggleDetails(3, this)" style="--color-start: #96CEB4; --color-end: #FFEEAD">
+                            <div class="rank-badge">#3</div>
+                            <div class="item-name">"The Wealth of Nations" by Adam Smith</div>
+                            <div class="mention-count">10 mentions</div>
+                            <div class="chevron">▼</div>
+                            
+                            <div id="details-3" class="model-details">
+                                <div class="model-grid">
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">o1-preview</span>
+                                        <span class="model-count">2</span>
+                                    </div>
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">grok-2-1212</span>
+                                        <span class="model-count">3</span>
+                                    </div>
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">nova-pro-v1</span>
+                                        <span class="model-count">3</span>
+                                    </div>
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">claude-3.5-haiku-20241022:beta</span>
+                                        <span class="model-count">1</span>
+                                    </div>
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">claude-3.5-sonnet:beta</span>
+                                        <span class="model-count">1</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="fade-in">
+                        <div class="item-row" onclick="toggleDetails(4, this)" style="--color-start: #D4A5A5; --color-end: #FFCBA4">
+                            <div class="rank-badge">#4</div>
+                            <div class="item-name">"Silent Spring" by Rachel Carson</div>
+                            <div class="mention-count">5 mentions</div>
+                            <div class="chevron">▼</div>
+                            
+                            <div id="details-4" class="model-details">
+                                <div class="model-grid">
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">qwq-32b-preview</span>
+                                        <span class="model-count">2</span>
+                                    </div>
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">grok-2-1212</span>
+                                        <span class="model-count">2</span>
+                                    </div>
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">claude-3.5-haiku-20241022:beta</span>
+                                        <span class="model-count">1</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="fade-in">
+                        <div class="item-row" onclick="toggleDetails(5, this)" style="--color-start: #9B5DE5; --color-end: #F15BB5">
+                            <div class="rank-badge">#5</div>
+                            <div class="item-name">A Brief History of Time by Stephen Hawking</div>
+                            <div class="mention-count">3 mentions</div>
+                            <div class="chevron">▼</div>
+                            
+                            <div id="details-5" class="model-details">
+                                <div class="model-grid">
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">o1-mini-2024-09-12</span>
+                                        <span class="model-count">2</span>
+                                    </div>
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">nova-pro-v1</span>
+                                        <span class="model-count">1</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="fade-in">
+                        <div class="item-row" onclick="toggleDetails(6, this)" style="--color-start: #00BBF9; --color-end: #00F5D4">
+                            <div class="rank-badge">#6</div>
+                            <div class="item-name">Democracy in America by Alexis de Tocqueville</div>
+                            <div class="mention-count">2 mentions</div>
+                            <div class="chevron">▼</div>
+                            
+                            <div id="details-6" class="model-details">
+                                <div class="model-grid">
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">claude-3.5-sonnet:beta</span>
+                                        <span class="model-count">2</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="fade-in">
+                        <div class="item-row" onclick="toggleDetails(7, this)" style="--color-start: #FEE440; --color-end: #F15BB5">
+                            <div class="rank-badge">#7</div>
+                            <div class="item-name">"Philosophiæ Naturalis Principia Mathematica" by Isaac Newton</div>
+                            <div class="mention-count">1 mentions</div>
+                            <div class="chevron">▼</div>
+                            
+                            <div id="details-7" class="model-details">
+                                <div class="model-grid">
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">o1-preview</span>
+                                        <span class="model-count">1</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="fade-in">
+                        <div class="item-row" onclick="toggleDetails(8, this)" style="--color-start: #00F5D4; --color-end: #00BBF9">
+                            <div class="rank-badge">#8</div>
+                            <div class="item-name">"Common Sense" by Thomas Paine</div>
+                            <div class="mention-count">1 mentions</div>
+                            <div class="chevron">▼</div>
+                            
+                            <div id="details-8" class="model-details">
+                                <div class="model-grid">
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">qwq-32b-preview</span>
+                                        <span class="model-count">1</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="fade-in">
+                        <div class="item-row" onclick="toggleDetails(9, this)" style="--color-start: #F15BB5; --color-end: #9B5DE5">
+                            <div class="rank-badge">#9</div>
+                            <div class="item-name">"The Structure of Scientific Revolutions" by Thomas S. Kuhn</div>
+                            <div class="mention-count">1 mentions</div>
+                            <div class="chevron">▼</div>
+                            
+                            <div id="details-9" class="model-details">
+                                <div class="model-grid">
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">qwq-32b-preview</span>
+                                        <span class="model-count">1</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="fade-in">
+                        <div class="item-row" onclick="toggleDetails(10, this)" style="--color-start: #FFE66D; --color-end: #FF6B6B">
+                            <div class="rank-badge">#10</div>
+                            <div class="item-name">"The Communist Manifesto" by Karl Marx and Friedrich Engels - Although controversial, this book has had a profound influence on political thought and has inspired movements aimed at social and economic equality.</div>
+                            <div class="mention-count">1 mentions</div>
+                            <div class="chevron">▼</div>
+                            
+                            <div id="details-10" class="model-details">
+                                <div class="model-grid">
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">qwq-32b-preview</span>
+                                        <span class="model-count">1</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="fade-in">
+                        <div class="item-row" onclick="toggleDetails(11, this)" style="--color-start: #FF6B6B; --color-end: #FFE66D">
+                            <div class="rank-badge">#11</div>
+                            <div class="item-name">"The Origin of Species" by Charles Darwin - This seminal work laid the foundation for the theory of evolution, which has been instrumental in advancing scientific understanding and has had profound implications for various fields, including biology, medicine, and anthropology.</div>
+                            <div class="mention-count">1 mentions</div>
+                            <div class="chevron">▼</div>
+                            
+                            <div id="details-11" class="model-details">
+                                <div class="model-grid">
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">qwq-32b-preview</span>
+                                        <span class="model-count">1</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="fade-in">
+                        <div class="item-row" onclick="toggleDetails(12, this)" style="--color-start: #4ECDC4; --color-end: #45B7D1">
+                            <div class="rank-badge">#12</div>
+                            <div class="item-name">I'm here to assist you, but I need to make sure I understand your question correctly. You're asking for a list of the top three most useful books that have significantly contributed to positive human progress. Is that right?请你鄃</div>
+                            <div class="mention-count">1 mentions</div>
+                            <div class="chevron">▼</div>
+                            
+                            <div id="details-12" class="model-details">
+                                <div class="model-grid">
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">qwq-32b-preview</span>
+                                        <span class="model-count">1</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="fade-in">
+                        <div class="item-row" onclick="toggleDetails(13, this)" style="--color-start: #96CEB4; --color-end: #FFEEAD">
+                            <div class="rank-badge">#13</div>
+                            <div class="item-name">"The Rights of Man" by Thomas Paine</div>
+                            <div class="mention-count">1 mentions</div>
+                            <div class="chevron">▼</div>
+                            
+                            <div id="details-13" class="model-details">
+                                <div class="model-grid">
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">grok-2-1212</span>
+                                        <span class="model-count">1</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="fade-in">
+                        <div class="item-row" onclick="toggleDetails(14, this)" style="--color-start: #D4A5A5; --color-end: #FFCBA4">
+                            <div class="rank-badge">#14</div>
+                            <div class="item-name">Principles of Economics by Alfred Marshall</div>
+                            <div class="mention-count">1 mentions</div>
+                            <div class="chevron">▼</div>
+                            
+                            <div id="details-14" class="model-details">
+                                <div class="model-grid">
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">nova-pro-v1</span>
+                                        <span class="model-count">1</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="fade-in">
+                        <div class="item-row" onclick="toggleDetails(15, this)" style="--color-start: #9B5DE5; --color-end: #F15BB5">
+                            <div class="rank-badge">#15</div>
+                            <div class="item-name">"Sapiens: A Brief History of Humankind" by Yuval Noah Harari</div>
+                            <div class="mention-count">1 mentions</div>
+                            <div class="chevron">▼</div>
+                            
+                            <div id="details-15" class="model-details">
+                                <div class="model-grid">
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">nova-pro-v1</span>
+                                        <span class="model-count">1</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="fade-in">
+                        <div class="item-row" onclick="toggleDetails(16, this)" style="--color-start: #00BBF9; --color-end: #00F5D4">
+                            <div class="rank-badge">#16</div>
+                            <div class="item-name">An Essay on the Principle of Population by Thomas Malthus</div>
+                            <div class="mention-count">1 mentions</div>
+                            <div class="chevron">▼</div>
+                            
+                            <div id="details-16" class="model-details">
+                                <div class="model-grid">
+                                    
+                                    <div class="model-badge">
+                                        <span class="model-name">claude-3.5-haiku-20241022:beta</span>
+                                        <span class="model-count">1</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
             <script>
+                // Animate items on load
                 anime({
                     targets: '.fade-in',
                     opacity: [0, 1],
                     translateY: [20, 0],
-                    delay: anime.stagger(100),
+                    delay: anime.stagger(50),
                     easing: 'easeOutExpo',
-                    duration: 1000
+                    duration: 800
                 });
+
+                // Toggle model details
+                function toggleDetails(rank, element) {
+                    const details = document.getElementById(`details-${rank}`);
+                    details.classList.toggle('active');
+                    element.classList.toggle('active');
+                    
+                    // Animate the expansion
+                    anime({
+                        targets: details,
+                        height: details.classList.contains('active') ? [0, details.scrollHeight] : [details.scrollHeight, 0],
+                        duration: 400,
+                        easing: 'easeOutExpo'
+                    });
+                }
             </script>
         </body>
         </html>

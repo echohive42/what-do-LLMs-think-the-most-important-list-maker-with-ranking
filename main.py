@@ -13,17 +13,14 @@ MODELS = [
     "openai/chatgpt-4o-latest",
     "openai/o1-mini-2024-09-12",
     "openai/o1-preview",
-    # "openai/o1",
     "deepseek/deepseek-chat",
     "qwen/qwq-32b-preview",
-    # "google/gemini-2.0-flash-thinking-exp:free",
     "x-ai/grok-2-1212",
-    # "google/gemini-exp-1206:free",
     "amazon/nova-pro-v1",
     "anthropic/claude-3.5-haiku-20241022:beta",
     "anthropic/claude-3.5-sonnet:beta"
 ]
-USER_QUESTION = "List 3 most useful books in human history"
+USER_QUESTION = "List the top 3 most useful books which have contributed most to positive human progress"
 REPETITIONS = 3
 API_KEY = os.getenv("OPENROUTER_API_KEY")
 SIMILARITY_THRESHOLD = 0.85  # Threshold for fuzzy matching
@@ -168,53 +165,163 @@ def save_html_table(item_counts: dict, item_by_model: dict):
                     opacity: 0;
                     transform: translateY(20px);
                 }
+                .item-row {
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    position: relative;
+                    padding: 0.75rem 1.25rem;
+                    border-radius: 0.5rem;
+                    margin-bottom: 0.25rem;
+                    display: grid;
+                    grid-template-columns: 50px 1fr 150px 30px;
+                    align-items: center;
+                    gap: 1rem;
+                    border: 1px solid rgba(255,255,255,0.1);
+                }
+                .item-row:hover {
+                    transform: translateX(10px);
+                    background: rgba(255,255,255,0.05);
+                    border-color: rgba(255,255,255,0.2);
+                }
+                .model-details {
+                    max-height: 0;
+                    overflow: hidden;
+                    transition: max-height 0.5s ease-out;
+                    margin-top: 0.5rem;
+                    grid-column: 1 / -1;
+                }
+                .model-details.active {
+                    max-height: 500px;
+                    padding: 1rem;
+                    background: rgba(0,0,0,0.2);
+                    border-radius: 0.5rem;
+                }
+                .rank-badge {
+                    font-size: 1.3rem;
+                    font-weight: 800;
+                    color: rgba(255,255,255,0.3);
+                    text-align: center;
+                    background: rgba(255,255,255,0.05);
+                    border-radius: 0.5rem;
+                    padding: 0.25rem;
+                    width: 40px;
+                }
+                .mention-count {
+                    color: #a991f7;
+                    font-weight: bold;
+                    font-size: 1.1rem;
+                    text-align: right;
+                    padding: 0.5rem 1rem;
+                    background: rgba(169,145,247,0.1);
+                    border-radius: 0.5rem;
+                }
+                .item-name {
+                    font-size: 1.75rem;
+                    font-weight: 700;
+                    padding: 0.25rem;
+                    line-height: 1.2;
+                    background: linear-gradient(45deg, var(--color-start), var(--color-end));
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+                .chevron {
+                    color: rgba(255,255,255,0.5);
+                    font-size: 1.2rem;
+                    transition: transform 0.3s ease;
+                }
+                .item-row.active .chevron {
+                    transform: rotate(180deg);
+                }
+                .model-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                    gap: 0.75rem;
+                }
+                .model-badge {
+                    background: rgba(169,145,247,0.1);
+                    padding: 0.5rem 1rem;
+                    border-radius: 0.5rem;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+                .model-name {
+                    font-size: 0.9rem;
+                    color: #e2e8f0;
+                }
+                .model-count {
+                    background: rgba(169,145,247,0.3);
+                    padding: 0.25rem 0.5rem;
+                    border-radius: 0.25rem;
+                    font-weight: bold;
+                }
             </style>
         </head>
         <body class="bg-gray-900 min-h-screen p-8">
-            <div class="container mx-auto">
+            <div class="container mx-auto max-w-5xl">
                 <h1 class="text-4xl font-bold mb-8 text-white text-center">Item Rankings</h1>
-                <div class="card bg-base-200 shadow-xl">
-                    <div class="card-body">
-                        <div class="overflow-x-auto">
-                            <table class="table table-zebra w-full">
-                                <thead>
-                                    <tr class="text-white">
-                                        <th>Rank</th>
-                                        <th>Item</th>
-                                        <th>Total Mentions</th>
-                                        <th>Models (with mention counts)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for rank, (item, count) in enumerate(item_counts.items(), 1) %}
-                                    <tr class="fade-in text-white">
-                                        <td>{{ rank }}</td>
-                                        <td>{{ item }}</td>
-                                        <td>{{ count }}</td>
-                                        <td>
-                                            {% for model, model_count in item_by_model[item].items() %}
-                                            <span class="badge badge-primary mr-2 mb-1">
-                                                {{ model.split('/')[-1] }}: {{ model_count }}
-                                            </span>
-                                            {% endfor %}
-                                        </td>
-                                    </tr>
+                <div class="space-y-2">
+                    {% for rank, (item, count) in enumerate(item_counts.items(), 1) %}
+                    {% set color_pairs = [
+                        ['#FF6B6B', '#FFE66D'],
+                        ['#4ECDC4', '#45B7D1'],
+                        ['#96CEB4', '#FFEEAD'],
+                        ['#D4A5A5', '#FFCBA4'],
+                        ['#9B5DE5', '#F15BB5'],
+                        ['#00BBF9', '#00F5D4'],
+                        ['#FEE440', '#F15BB5'],
+                        ['#00F5D4', '#00BBF9'],
+                        ['#F15BB5', '#9B5DE5'],
+                        ['#FFE66D', '#FF6B6B']
+                    ] %}
+                    {% set colors = color_pairs[(rank - 1) % 10] %}
+                    <div class="fade-in">
+                        <div class="item-row" onclick="toggleDetails({{ rank }}, this)" style="--color-start: {{ colors[0] }}; --color-end: {{ colors[1] }}">
+                            <div class="rank-badge">#{{ rank }}</div>
+                            <div class="item-name">{{ item }}</div>
+                            <div class="mention-count">{{ count }} mentions</div>
+                            <div class="chevron">▼</div>
+                            
+                            <div id="details-{{ rank }}" class="model-details">
+                                <div class="model-grid">
+                                    {% for model, model_count in item_by_model[item].items() %}
+                                    <div class="model-badge">
+                                        <span class="model-name">{{ model.split('/')[-1] }}</span>
+                                        <span class="model-count">{{ model_count }}</span>
+                                    </div>
                                     {% endfor %}
-                                </tbody>
-                            </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
             </div>
             <script>
+                // Animate items on load
                 anime({
                     targets: '.fade-in',
                     opacity: [0, 1],
                     translateY: [20, 0],
-                    delay: anime.stagger(100),
+                    delay: anime.stagger(50),
                     easing: 'easeOutExpo',
-                    duration: 1000
+                    duration: 800
                 });
+
+                // Toggle model details
+                function toggleDetails(rank, element) {
+                    const details = document.getElementById(`details-${rank}`);
+                    details.classList.toggle('active');
+                    element.classList.toggle('active');
+                    
+                    // Animate the expansion
+                    anime({
+                        targets: details,
+                        height: details.classList.contains('active') ? [0, details.scrollHeight] : [details.scrollHeight, 0],
+                        duration: 400,
+                        easing: 'easeOutExpo'
+                    });
+                }
             </script>
         </body>
         </html>
