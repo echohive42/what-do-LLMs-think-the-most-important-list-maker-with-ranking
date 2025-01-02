@@ -1,0 +1,404 @@
+
+        <!DOCTYPE html>
+        <html lang="en" data-theme="dark">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Item Rankings</title>
+            <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet">
+            <script src="https://cdn.tailwindcss.com"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+            <style>
+                .fade-in {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+            </style>
+        </head>
+        <body class="bg-gray-900 min-h-screen p-8">
+            <div class="container mx-auto">
+                <h1 class="text-4xl font-bold mb-8 text-white text-center">Item Rankings</h1>
+                <div class="card bg-base-200 shadow-xl">
+                    <div class="card-body">
+                        <div class="overflow-x-auto">
+                            <table class="table table-zebra w-full">
+                                <thead>
+                                    <tr class="text-white">
+                                        <th>Rank</th>
+                                        <th>Item</th>
+                                        <th>Total Mentions</th>
+                                        <th>Models (with mention counts)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    <tr class="fade-in text-white">
+                                        <td>1</td>
+                                        <td>Electricity</td>
+                                        <td>24</td>
+                                        <td>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                chatgpt-4o-latest: 3
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                o1-mini-2024-09-12: 3
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                o1-preview: 2
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                deepseek-chat: 3
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                qwq-32b-preview: 3
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                gemini-2.0-flash-thinking-exp:free: 1
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                grok-2-1212: 3
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                claude-3.5-haiku-20241022:beta: 3
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                claude-3.5-sonnet:beta: 3
+                                            </span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr class="fade-in text-white">
+                                        <td>2</td>
+                                        <td>Printing press</td>
+                                        <td>19</td>
+                                        <td>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                chatgpt-4o-latest: 3
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                o1-mini-2024-09-12: 1
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                o1-preview: 2
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                deepseek-chat: 3
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                qwq-32b-preview: 2
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                grok-2-1212: 3
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                nova-pro-v1: 2
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                claude-3.5-haiku-20241022:beta: 3
+                                            </span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr class="fade-in text-white">
+                                        <td>3</td>
+                                        <td>Wheel</td>
+                                        <td>17</td>
+                                        <td>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                chatgpt-4o-latest: 3
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                o1-mini-2024-09-12: 1
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                o1-preview: 2
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                deepseek-chat: 1
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                qwq-32b-preview: 1
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                grok-2-1212: 3
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                nova-pro-v1: 1
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                claude-3.5-haiku-20241022:beta: 3
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                claude-3.5-sonnet:beta: 2
+                                            </span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr class="fade-in text-white">
+                                        <td>4</td>
+                                        <td>Internet</td>
+                                        <td>12</td>
+                                        <td>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                chatgpt-4o-latest: 3
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                o1-mini-2024-09-12: 1
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                o1-preview: 2
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                deepseek-chat: 1
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                qwq-32b-preview: 1
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                grok-2-1212: 3
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                claude-3.5-haiku-20241022:beta: 1
+                                            </span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr class="fade-in text-white">
+                                        <td>5</td>
+                                        <td>Writing</td>
+                                        <td>7</td>
+                                        <td>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                o1-preview: 1
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                qwq-32b-preview: 2
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                gemini-2.0-flash-thinking-exp:free: 1
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                claude-3.5-haiku-20241022:beta: 2
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                claude-3.5-sonnet:beta: 1
+                                            </span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr class="fade-in text-white">
+                                        <td>6</td>
+                                        <td>fire</td>
+                                        <td>6</td>
+                                        <td>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                qwq-32b-preview: 2
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                gemini-2.0-flash-thinking-exp:free: 1
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                claude-3.5-sonnet:beta: 3
+                                            </span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr class="fade-in text-white">
+                                        <td>7</td>
+                                        <td>Agriculture</td>
+                                        <td>5</td>
+                                        <td>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                claude-3.5-haiku-20241022:beta: 2
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                claude-3.5-sonnet:beta: 3
+                                            </span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr class="fade-in text-white">
+                                        <td>8</td>
+                                        <td>Vaccination</td>
+                                        <td>4</td>
+                                        <td>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                chatgpt-4o-latest: 2
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                o1-mini-2024-09-12: 1
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                gemini-2.0-flash-thinking-exp:free: 1
+                                            </span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr class="fade-in text-white">
+                                        <td>9</td>
+                                        <td>Penicillin</td>
+                                        <td>4</td>
+                                        <td>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                chatgpt-4o-latest: 1
+                                            </span>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                deepseek-chat: 3
+                                            </span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr class="fade-in text-white">
+                                        <td>10</td>
+                                        <td>Antibiotics</td>
+                                        <td>3</td>
+                                        <td>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                grok-2-1212: 3
+                                            </span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr class="fade-in text-white">
+                                        <td>11</td>
+                                        <td>Written language</td>
+                                        <td>2</td>
+                                        <td>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                claude-3.5-sonnet:beta: 2
+                                            </span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr class="fade-in text-white">
+                                        <td>12</td>
+                                        <td>Steam Engine</td>
+                                        <td>1</td>
+                                        <td>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                o1-preview: 1
+                                            </span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr class="fade-in text-white">
+                                        <td>13</td>
+                                        <td>Telephone</td>
+                                        <td>1</td>
+                                        <td>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                qwq-32b-preview: 1
+                                            </span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr class="fade-in text-white">
+                                        <td>14</td>
+                                        <td>Error: 'NoneType' object is not subscriptable</td>
+                                        <td>1</td>
+                                        <td>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                gemini-2.0-flash-thinking-exp:free: 1
+                                            </span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr class="fade-in text-white">
+                                        <td>15</td>
+                                        <td>Agricultural tools</td>
+                                        <td>1</td>
+                                        <td>
+                                            
+                                            <span class="badge badge-primary mr-2 mb-1">
+                                                claude-3.5-haiku-20241022:beta: 1
+                                            </span>
+                                            
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                anime({
+                    targets: '.fade-in',
+                    opacity: [0, 1],
+                    translateY: [20, 0],
+                    delay: anime.stagger(100),
+                    easing: 'easeOutExpo',
+                    duration: 1000
+                });
+            </script>
+        </body>
+        </html>
+        
