@@ -23,7 +23,7 @@ MODELS = [
     "anthropic/claude-3.5-haiku-20241022:beta",
     "anthropic/claude-3.5-sonnet:beta"
 ]
-USER_QUESTION = "List 5 most important inventions in human history"
+USER_QUESTION = "List 3 most useful books in human history"
 REPETITIONS = 3
 API_KEY = os.getenv("OPENROUTER_API_KEY")
 SIMILARITY_THRESHOLD = 0.85  # Threshold for fuzzy matching
@@ -45,10 +45,30 @@ def extract_list_items(response_text: str) -> list:
         lines = content.split('\n')
         items = []
         
+        # Common AI model disclaimers to exclude
+        disclaimer_patterns = [
+            r'sorry.+ai( language)? model',
+            r'as an ai( language)? model',
+            r'i (can\'?t|cannot|don\'?t) (have|provide|assist|help)',
+            r'i apologize',
+            r'i am not able to',
+            r'i do not have personal',
+            r'i must decline',
+            r'i don\'?t have personal',
+            r'i am an ai',
+            r'i\'m an ai'
+        ]
+        
+        disclaimer_regex = re.compile('|'.join(disclaimer_patterns), re.IGNORECASE)
+        
         for line in lines:
             # Remove common list markers and clean up
             clean_line = re.sub(r'^[\d\-\.\*\•\○\●\)\s]+', '', line.strip())
-            if clean_line and not clean_line.lower().startswith(('here', 'these', 'the', 'following')):
+            
+            # Skip empty lines, common prefixes, and AI disclaimers
+            if (clean_line and 
+                not clean_line.lower().startswith(('here', 'these', 'the', 'following')) and
+                not disclaimer_regex.search(clean_line)):
                 items.append(clean_line.strip())
         
         return items
@@ -223,7 +243,21 @@ async def get_model_response(model: str, question: str) -> dict:
             messages=[
                 {
                     "role": "system",
-                    "content": "You are a precise list generator. Return ONLY the list items between <response></response> tags. No explanations, no numbering, just the items, one per line."
+                    "content": """You are a precise list generator. Follow these rules EXACTLY:
+1. Start your response with <response>
+2. List each item on a new line
+3. Do not include any numbers, bullets, or markers
+4. Do not add any explanations or commentary
+5. Do not use prefixes like 'here are' or 'the following'
+6. Keep each item concise but complete
+7. End your response with </response>
+
+Example correct format:
+<response>
+First item here
+Second item here
+Third item here
+</response>"""
                 },
                 {
                     "role": "user",
